@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gtaf_assignment/github_project/model/git_commit_list_response.dart';
+import 'package:gtaf_assignment/github_project/model/git_user_response.dart';
 import 'package:gtaf_assignment/github_project/repository/repository.dart';
 import 'package:gtaf_assignment/github_project/screen/commit_list.dart';
 import 'package:gtaf_assignment/github_project/screen/user_profile.dart';
@@ -26,7 +27,7 @@ class Presenter{
     Navigator.push(
         _context,
         MaterialPageRoute(
-          builder: (context) => const UserProfile(),
+          builder: (context) => const SereenUserProfile(),
         ));
   }
 
@@ -37,6 +38,23 @@ class Presenter{
     try {
       List<CommitListResponse> data;
       data = await _repository.getCommitList();
+      if (data != null) {
+        onSuccess(data);
+      } else {
+        onFailure("Something Wrong");
+      }
+    } catch (e) {
+      onFailure(e.toString());
+    }
+  }
+
+  void getUser(
+      BuildContext context,
+      {required void Function(UserResponse) onSuccess,
+        required void Function(String) onFailure}) async {
+    try {
+      UserResponse data;
+      data = await _repository.getUserProfile();
       if (data != null) {
         onSuccess(data);
       } else {

@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   dio: ^4.0.0
   cached_network_image: ^3.0.0
+  intl: ^0.17.0
   pretty_dio_logger: ^1.1.1
   connectivity: ^3.0.3
   pigment: ^1.0.3

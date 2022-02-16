@@ -1,5 +1,13 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gtaf_assignment/github_project/presenter/presenter.dart';
+import 'package:gtaf_assignment/github_project/screen/user_profile.dart';
+import 'package:gtaf_assignment/github_project/values/color_util.dart';
+import 'package:gtaf_assignment/github_project/values/image_assets.dart';
+
+import 'commit_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -32,49 +40,49 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   ValueNotifier<bool> _isLoading = ValueNotifier(true);
+  // ValueNotifier<int> _currentIndex = ValueNotifier(0);
+  int _currentIndex = 0;
+  final _tabs = [ScreenCommitList(), SereenUserProfile()];
   late Presenter _presenter;
 
   @override
   void initState() {
     super.initState();
     _presenter = Presenter(context);
-    _goToListPage();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-        body: ValueListenableBuilder(
-          valueListenable: _isLoading,
-          builder: (context, value, child) => Center(
-              child: value == true ? _loadingView() : Center(child: Text("Error"),)
-          ),
-
-        ) // This trailing comma makes auto-formatting nicer for build methods.
+        body: _tabs[_currentIndex],
+      bottomNavigationBar: _bottomNavigation(),// This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 
-  Widget _loadingView(){
-    return const CircularProgressIndicator();
+  Widget _bottomNavigation() {
+    return BottomNavigationBar(
+      currentIndex: _currentIndex,
+      type: BottomNavigationBarType.fixed,
+      backgroundColor: ColorUtils.black_161616,
+      selectedItemColor: ColorUtils.selected_font,
+      unselectedItemColor: ColorUtils.de_selected_font,
+      // selectedLabelStyle: TextStyle(color: ColorUtils.selected_font),
+      // unselectedLabelStyle: TextStyle(color: ColorUtils.de_selected_font),
+      items: [
+        BottomNavigationBarItem(
+            icon: SvgPicture.asset(ImageAssets.COMMIT_DESELECT),
+            activeIcon: SvgPicture.asset(ImageAssets.COMMIT_SELECT),
+            label: "Commits"),
+        BottomNavigationBarItem(
+            icon: SvgPicture.asset(ImageAssets.USER_DESELECT),
+            activeIcon: SvgPicture.asset(ImageAssets.USER_SELECT),
+            label: "User Profile"),
+      ],
+      onTap: (index) {
+        setState(() {
+          _currentIndex = index;
+        });
+      },
+    );
   }
-
-  void _goToListPage() async {
-    _presenter.getCommitList(context, onSuccess: (data) {
-      _isLoading.value = false;
-      _presenter.navigateUserProfile();
-    }, onFailure: (message) {
-      _isLoading.value = false;
-      print(message);
-    },);
-    // _isLoading.value = false;
-    // await Future.delayed(const Duration(seconds: 1));
-    // _presenter.navigateUserProfile();
-  }
-
-  // Widget _logo(){
-  //   return Image.asset(name);
-  // }
 }

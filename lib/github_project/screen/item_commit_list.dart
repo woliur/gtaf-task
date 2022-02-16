@@ -1,14 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gtaf_assignment/github_project/model/git_commit_list_response.dart';
 import 'package:gtaf_assignment/github_project/presenter/presenter.dart';
+import 'package:gtaf_assignment/github_project/util/date_formate_util.dart';
 import '../values/color_util.dart';
 import 'package:gtaf_assignment/github_project/values/image_assets.dart';
 
 class CommitListItem extends StatefulWidget {
-  const CommitListItem({Key? key}) : super(key: key);
+  final CommitListResponse data;
 
   @override
   _CommitListItemState createState() => _CommitListItemState();
+
+  CommitListItem(this.data);
 }
 
 class _CommitListItemState extends State<CommitListItem> {
@@ -25,7 +29,7 @@ class _CommitListItemState extends State<CommitListItem> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        _presenter.navigateUserProfile();
+
       },
       child: Container(
         padding: EdgeInsets.only(top: 12.0, bottom: 12.0, left: 16.0, right: 17.0),
@@ -47,31 +51,39 @@ class _CommitListItemState extends State<CommitListItem> {
   Widget _firstRow() {
     return Row(
       children: [
-        _messageText(),
-        Spacer(),
-        _timeWidget(),
+        _messageText(widget.data.commit!.message.toString()),
+        _timeWidget(widget.data.commit!.author!.date.toString()),
       ],
     );
   }
 
-  Widget _messageText() {
-    return Text(
-      "Fix All bugs",
-      style: TextStyle(
-        fontSize: 17.0,
-        fontWeight: FontWeight.w400,
-        color: ColorUtils.white,
+  Widget _messageText(String text) {
+    return Expanded(
+      flex: 5,
+      child: Text(
+        text,
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        style: TextStyle(
+          fontSize: 17.0,
+          fontWeight: FontWeight.w400,
+          color: ColorUtils.white,
+        ),
       ),
     );
   }
 
-  Widget _timeWidget() {
-    return Text(
-      "18:14",
-      style: TextStyle(
-        fontSize: 12.0,
-        fontWeight: FontWeight.w400,
-        color: ColorUtils.grey_B8B8B8,
+  Widget _timeWidget(String date) {
+    return Expanded(
+      flex: 1,
+      child: Text(
+        DateUtil.instance.formatDateWithTimeUTC(date),
+        textAlign: TextAlign.end,
+        style: TextStyle(
+          fontSize: 12.0,
+          fontWeight: FontWeight.w400,
+          color: ColorUtils.grey_B8B8B8,
+        ),
       ),
     );
   }
@@ -79,26 +91,26 @@ class _CommitListItemState extends State<CommitListItem> {
   Widget _secondRow() {
     return Row(
       children: [
-        _avaterWidget(),
+        _avaterWidget(widget.data.author!.avatarUrl.toString()),
         const SizedBox(
           width: 8,
         ),
-        nameText(),
+        nameText(widget.data.commit!.author!.name.toString()),
       ],
     );
   }
 
-  Widget _avaterWidget() {
+  Widget _avaterWidget(String img) {
     return ClipOval(
       child: SizedBox.fromSize(// Image radius
-        child: Image.asset(ImageAssets.AVATER, height: 20, width: 20,)
+        child: Image.network(img, height: 20, width: 20,)
       ),
     );
   }
 
-  Widget nameText() {
+  Widget nameText(String text) {
     return Text(
-      "Francisco Miles",
+      text,
       style: TextStyle(
         fontSize: 12.0,
         fontWeight: FontWeight.w400,

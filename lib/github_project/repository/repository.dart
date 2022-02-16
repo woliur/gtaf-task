@@ -24,8 +24,7 @@ class Repository{
     }
   }
 
-  Future<UserResponse> getUserProfile(
-      BuildContext context, String orderId) async {
+  Future<UserResponse> getUserProfile() async {
     String url = ApiUrls.commitUserProfile;
     try {
       final response = await ApiClient.get(

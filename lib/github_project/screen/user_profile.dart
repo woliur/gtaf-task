@@ -1,22 +1,40 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:gtaf_assignment/github_project/model/git_user_response.dart';
+import 'package:gtaf_assignment/github_project/presenter/presenter.dart';
 import 'package:gtaf_assignment/github_project/values/color_util.dart';
-import 'package:gtaf_assignment/github_project/values/image_assets.dart';
 
-class UserProfile extends StatefulWidget {
-  const UserProfile({Key? key}) : super(key: key);
+class SereenUserProfile extends StatefulWidget {
+  const SereenUserProfile({Key? key}) : super(key: key);
 
   @override
-  _UserProfileState createState() => _UserProfileState();
+  _SereenUserProfileState createState() => _SereenUserProfileState();
 }
 
-class _UserProfileState extends State<UserProfile> {
+class _SereenUserProfileState extends State<SereenUserProfile> {
+  ValueNotifier<bool> _isLoading = ValueNotifier(true);
+  late Presenter _presenter;
+  late UserResponse _data;
+  @override
+  void initState() {
+    super.initState();
+    _presenter = Presenter(context);
+    _getUser();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorUtils.grey_333333,
-      body: _body(),
+      body: ValueListenableBuilder(
+        valueListenable: _isLoading,
+        builder: (context, value, child) =>
+        value == true ? _loadingView() : _body(),
+      ),
     );
+  }
+
+  Widget _loadingView() {
+    return Center(child: CircularProgressIndicator());
   }
 
   Widget _body() {
@@ -25,35 +43,35 @@ class _UserProfileState extends State<UserProfile> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _userPicture(),
+          _userPicture(_data.avatarUrl.toString()),
           SizedBox(height: 16,),
-          _nameText("bb"),
+          _nameText(_data.name.toString()),
           SizedBox(height: 4,),
-          _twitterText("u"),
+          _twitterText(_data.twitterUsername.toString()),
           SizedBox(height: 16,),
-          _commonText("k"),
+          _commonText("Bio: "+_data.bio.toString()),
           SizedBox(height: 16,),
-          _commonText("k"),
+          _commonText("Public Repos: "+_data.publicRepos.toString()),
           SizedBox(height: 8,),
-          _commonText("k"),
+          _commonText("Public Gists: "+_data.publicGists.toString()),
           SizedBox(height: 8,),
-          _commonText("k"),
+          _commonText("Private Repos: "+_data.publicRepos.toString()),
         ],
       ),
     );
   }
 
-  Widget _userPicture(){
+  Widget _userPicture(String image){
     return ClipOval(
       child: SizedBox.fromSize(// Image radius
-          child: Image.asset(ImageAssets.AVATER, height: 168, width: 168,)
+          child: Image.network(image, height: 168, width: 168,)
       ),
     );
   }
 
   Widget _nameText(String value) {
     return Text(
-      "Francisco Miles",
+      value,
       style: TextStyle(
         fontSize: 24.0,
         fontWeight: FontWeight.w400,
@@ -63,8 +81,7 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   Widget _twitterText(String value) {
-    return Text(
-      "@fransico_miles",
+    return Text( _isNull(value) ? "N/A" : value,
       style: TextStyle(
         fontSize: 14.0,
         fontWeight: FontWeight.w400,
@@ -75,13 +92,31 @@ class _UserProfileState extends State<UserProfile> {
 
   Widget _commonText(String value) {
     return Text(
-      "Bio: There once was...",
+      _isNull(value) ? "N/A" : value,
       style: TextStyle(
         fontSize: 17.0,
         fontWeight: FontWeight.w400,
         color: ColorUtils.white,
       ),
     );
+  }
+
+  void _getUser() async {
+    _presenter.getUser(context, onSuccess: (data) {
+      _isLoading.value = false;
+      _data = data;
+    }, onFailure: (msg) {
+      _isLoading.value = false;
+      print(msg);
+    },);
+  }
+
+  bool _isNull(String? string){
+    if(string == null || string == "null"){
+      return true;
+    }else {
+      return false;
+    }
   }
 
 }
