@@ -7,7 +7,7 @@ import 'package:gtaf_assignment/github_project/screen/user_profile.dart';
 import 'package:gtaf_assignment/github_project/values/color_util.dart';
 import 'package:gtaf_assignment/github_project/values/image_assets.dart';
 
-import 'commit_list.dart';
+import 'github_project/screen/commit_list.dart';
 
 void main() {
   runApp(const MyApp());
