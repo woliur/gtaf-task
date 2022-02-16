@@ -15,6 +15,14 @@ class _ScreenCommitListState extends State<ScreenCommitList> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorUtils.primary,
-      body: Center(child: ListView.builder(itemCount: 50,itemBuilder: (context, index) => CommitListItem(),)));
+      body: Column(
+        children: [
+          _listBody(),
+        ],
+      ));
+  }
+
+  Widget _listBody(){
+    return Center(child: ListView.builder(itemCount: 50,itemBuilder: (context, index) => CommitListItem(),));
   }
 }
