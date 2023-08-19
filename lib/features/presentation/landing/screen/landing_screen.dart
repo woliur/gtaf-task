@@ -5,15 +5,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gtaf_assignment/features/presentation/commit_list/bloc/commit_bloc.dart';
 import 'package:gtaf_assignment/features/presentation/commit_list/bloc/commit_event.dart';
 import 'package:gtaf_assignment/features/presentation/commit_list/screen/screen_commit_list.dart';
-import 'package:gtaf_assignment/features/presentation/landing/presentation/bloc/landing_bloc.dart';
-import 'package:gtaf_assignment/features/presentation/landing/presentation/bloc/landing_event.dart';
-import 'package:gtaf_assignment/features/presentation/landing/presentation/bloc/landing_state.dart';
-import 'package:gtaf_assignment/features/presentation/landing/presentation/screen/bottom_widget.dart';
+import 'package:gtaf_assignment/features/presentation/landing/bloc/landing_bloc.dart';
 import 'package:gtaf_assignment/features/presentation/user_profile/bloc/user_event.dart';
 import 'package:gtaf_assignment/features/presentation/user_profile/screen/screen_user_profile.dart';
 import 'package:gtaf_assignment/res/app_context_extension.dart';
 
-import '../../../user_profile/bloc/user_bloc.dart';
+import '../../user_profile/bloc/user_bloc.dart';
+import '../bloc/landing_event.dart';
+import '../bloc/landing_state.dart';
+import 'bottom_widget.dart';
+
 
 class LandingScreen extends StatelessWidget {
   const LandingScreen({Key? key}) : super(key: key);
@@ -65,7 +66,7 @@ class LandingScreen extends StatelessWidget {
               unselectedItemColor: context.resources.color.blue_0059b3,
               onTap: (int index){
                 if(index == 0){
-                  context.read<CommitBloc>().add(GetCommitsEvent());
+                  // context.read<CommitBloc>().add(GetCommitsEvent());
                 }
                 if(index == 1){
                   context.read<UserBloc>().add(GetUserEvent());

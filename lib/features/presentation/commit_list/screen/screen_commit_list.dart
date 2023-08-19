@@ -102,7 +102,7 @@ class ListWidget extends StatelessWidget {
       scrollDirection: Axis.vertical,
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      itemCount: 10,
+      itemCount: state.list?.length,
       itemBuilder: (context, index) => CommitListItem(item: state.list![index]),
     );
   }
@@ -135,7 +135,7 @@ class CommitListItem extends StatelessWidget {
                     item.commitMessage ?? "",
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 17.0,
                       fontWeight: FontWeight.w400,
                       color: Colors.white,

@@ -5,7 +5,8 @@ import 'package:gtaf_assignment/features/presentation/commit_list/screen/screen_
 import 'package:gtaf_assignment/features/presentation/user_profile/screen/screen_user_profile.dart';
 import 'package:gtaf_assignment/route/route_paths.dart';
 
-import '../features/presentation/landing/presentation/screen/landing_screen.dart';
+import '../features/presentation/landing/screen/landing_screen.dart';
+
 
 class AppRouter {
   static Route generateRoute(RouteSettings settings) {

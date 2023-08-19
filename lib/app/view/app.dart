@@ -7,8 +7,8 @@ import 'package:gtaf_assignment/features/presentation/commit_list/bloc/commit_ev
 import 'package:gtaf_assignment/features/presentation/user_profile/bloc/user_bloc.dart';
 import 'package:gtaf_assignment/features/presentation/user_profile/bloc/user_event.dart';
 
-import '../../features/presentation/landing/presentation/bloc/landing_bloc.dart';
-import '../../features/presentation/landing/presentation/screen/landing_screen.dart';
+import '../../features/presentation/landing/bloc/landing_bloc.dart';
+import '../../features/presentation/landing/screen/landing_screen.dart';
 import '../../route/app_router.dart';
 import '../../route/navigation_service.dart';
 
@@ -35,8 +35,8 @@ class AppBlocProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => UserBloc(repository: context.read<Repository>())..add(GetUserEvent())),
           BlocProvider(create: (context) => CommitBloc(repository: context.read<Repository>())..add(GetCommitsEvent())),
+          BlocProvider(create: (context) => UserBloc(repository: context.read<Repository>())),
           BlocProvider(create: (context) => LandingBloc()),
         ],
         child: MaterialApp(

@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:gtaf_assignment/features/presentation/landing/presentation/bloc/landing_event.dart';
-import 'package:gtaf_assignment/features/presentation/landing/presentation/bloc/landing_state.dart';
+import 'package:gtaf_assignment/features/presentation/landing/bloc/landing_event.dart';
+import 'package:gtaf_assignment/features/presentation/landing/bloc/landing_state.dart';
 
 class LandingBloc extends Bloc<LandingEvent, LandingState> {
 

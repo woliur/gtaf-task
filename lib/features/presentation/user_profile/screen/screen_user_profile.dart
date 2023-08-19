@@ -34,70 +34,72 @@ class ScreenUserProfile extends StatelessWidget {
                   );
                 } else {
                   return SingleChildScrollView(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 24,top: 74, right: 24),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          ClipOval(
-                            child: SizedBox.fromSize(// Image radius
-                                child: Image.network(state.user!.avatar ?? "N/A", height: 168, width: 168,)
+                    child: Center(
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 24,top: 74, right: 24),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            ClipOval(
+                              child: SizedBox.fromSize(// Image radius
+                                  child: Image.network(state.user!.avatar ?? "N/A", height: 168, width: 168,)
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 16,),
-                          Text(
-                            state.user!.name ?? "N/A",
-                            style: const TextStyle(
-                              fontSize: 24.0,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
+                            const SizedBox(height: 16,),
+                            Text(
+                              state.user!.name ?? "N/A",
+                              style: const TextStyle(
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 4,),
-                          Text(state.user!.twitterUsername!,
-                            style: TextStyle(
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.w400,
-                              color: context.resources.color.grey_C9C9C9,
+                            const SizedBox(height: 4,),
+                            Text(state.user!.twitterUsername!,
+                              style: TextStyle(
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.w400,
+                                color: context.resources.color.grey_C9C9C9,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 16,),
-                          Text(
-                            "Bio: ${state.user!.bio}" ,
-                            style: const TextStyle(
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
+                            const SizedBox(height: 16,),
+                            Text(
+                              "Bio: ${state.user!.bio}" ,
+                              style: const TextStyle(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 16,),
-                          Text(
-                            "Public Repos: ${state.user!.publicRepos}",
-                            style: const TextStyle(
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
+                            const SizedBox(height: 16,),
+                            Text(
+                              "Public Repos: ${state.user!.publicRepos}",
+                              style: const TextStyle(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 8,),
-                          Text(
-                            "Public Gists: ${state.user!.publicGists}",
-                            style: const TextStyle(
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
+                            const SizedBox(height: 8,),
+                            Text(
+                              "Public Gists: ${state.user!.publicGists}",
+                              style: const TextStyle(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 8,),
-                          Text(
-                            "Private Repos: ${state.user!.publicGists}",
-                            style: const TextStyle(
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.white,
+                            const SizedBox(height: 8,),
+                            Text(
+                              "Private Repos: ${state.user!.publicGists}",
+                              style: const TextStyle(
+                                fontSize: 17.0,
+                                fontWeight: FontWeight.w400,
+                                color: Colors.white,
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   );
