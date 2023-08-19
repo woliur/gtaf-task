@@ -34,15 +34,19 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
-  dio: ^4.0.0
-  cached_network_image: ^3.0.0
-  intl: ^0.17.0
-  pretty_dio_logger: ^1.1.1
-  connectivity: ^3.0.3
-  pigment: ^1.0.3
-  flutter_svg: ^0.22.0
-  json_annotation: ^4.0.0
-  json_serializable: ^4.0.1
+  get_it: ^7.2.0
+  dio: ^5.1.0
+  logger: ^1.1.0
+  flutter_pretty_dio_logger: ^2.0.3
+  flutter_svg: ^1.1.5
+  flutter_bloc: ^8.1.1
+  equatable: ^2.0.5
+  flutter_dotenv: ^5.0.2
+  flutter_secure_storage: ^6.0.0
+  fluttertoast: 8.1.2
+  cached_network_image: 3.2.3
+  permission_handler: 10.2.0
+  intl: ^0.18.0
 
 dev_dependencies:
   flutter_test:
@@ -72,6 +76,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
+    - .env
     - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -99,3 +104,5 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_intl:
+  enabled: true
